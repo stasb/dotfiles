@@ -17,6 +17,8 @@ set history=50                               " Size of command history.
 set encoding=utf8                            " Always use unicode.
 set backspace=indent,eol,start               " Fix backspace.
 
+set background=dark
+
 set nobackup                                 " Disable backups.
 set nowritebackup
 set noswapfile
@@ -28,7 +30,6 @@ set nomodeline
 set selection=inclusive                      " Select to the end of line.
 
 set spelllang=en_au                          " Set spell check language.
-set tags+=tags                               " Enable tags.
 
 " ------------------------------------------------------------------------------
 " Vundle
@@ -44,11 +45,14 @@ Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-bundler'
+Bundle 'tpope/vim-ragtag'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'pangloss/vim-javascript'
+Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'skalnik/vim-vroom'
+Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'godlygeek/tabular'
@@ -56,10 +60,62 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'henrik/rename.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'tsaleh/vim-matchit'
-Bundle 'noprompt/vim-yardoc'
-Bundle 'bling/vim-airline'
+Bundle 'scrooloose/nerdtree'
+
+" Git
+Bundle 'tpope/vim-git'
+Bundle 'tpope/vim-fugitive'
+
+" Fuzzy file finder
+Bundle 'kien/ctrlp.vim'
+
+" Call ack from vim
+Bundle 'mileszs/ack.vim'
+
+" Surround text keybindings
+Bundle 'tpope/vim-surround'
+
+" Auto insert end structures
+Bundle 'tpope/vim-endwise'
+
+" Launch rspec tests from vim
+Bundle 'skalnik/vim-vroom'
+
+" Format tabular text (ie Cucumber)
+Bundle 'godlygeek/tabular'
+
+" Commenting plugin
+Bundle 'tomtom/tcomment_vim'
+
+" Better status bar
+Bundle 'Lokaltog/vim-powerline'
+
+" Auto detect indentation settings
+Bundle 'Raimondi/YAIFA'
+
+" Kill buffers without closing windows
+Bundle 'vim-scripts/bufkill.vim'
+
+" Maintain widths of windows
+Bundle 'roman/golden-ratio'
+
+" Indent pasted lines properly. No more :set paste.
+Bundle 'sickill/vim-pasta'
+
+" Indentation-based text objects.
+Bundle 'michaeljsmith/vim-indent-object'
+
+" Displays indent levels.
+Bundle 'nathanaelkane/vim-indent-guides'
+
+" Configures % to match more than just single characters.
+Bundle 'vim-scripts/matchit.zip'
+
+" Tab completion
 Bundle 'ervandew/supertab'
-Bundle 'christoomey/vim-tmux-navigator'
+
+" Rename buffers/files
+Bundle 'henrik/rename.vim'
 
 " Themes
 Bundle 'kien/rainbow_parentheses.vim'
@@ -75,14 +131,31 @@ map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
 
+nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 " Ack
-nnoremap <leader>a :Ack<space>
+nnoremap <leader>a :Ack!<space>
 
 " Rename buffer
 nnoremap <Leader><Leader>r :Rename!<space>
 
+" Tabular
+nmap <Leader><Leader>c<Bar> :Tabularize /<Bar><CR>
+vmap <Leader><Leader>c<Bar> :Tabularize /<Bar><CR>
+nmap <Leader><Leader>c, :Tabularize /,<CR>
+vmap <Leader><Leader>c, :Tabularize /,<CR>
+
 " Project Notes
 map <Leader>pn :sp ~/Dropbox/Notes.md<CR>
+
+" Nerd Tree
+map <Leader>ne :NERDTree<CR>
 
 " Fugitive Status
 map <Leader>s :Gstatus<CR>
@@ -101,10 +174,19 @@ au FileType ruby imap <Leader>r <ESC>:wa<CR>:VroomRunTestFile<CR>
 au FileType ruby imap <Leader>R <ESC>:wa<CR>:VroomRunNearestTest<CR>
 
 " ------------------------------------------------------------------------------
+" Rag Tag
+" ------------------------------------------------------------------------------
+
+inoremap <M-o> <Esc>o
+inoremap <C-j> <Down>
+let g:ragtag_global_maps = 1
+
+" ------------------------------------------------------------------------------
 " vroom
 " ------------------------------------------------------------------------------
+
 let g:vroom_map_keys = 0
-let g:vroom_use_dispatch = 0
+let g:vroom_use_bundle_exec = 1
 
 " ------------------------------------------------------------------------------
 " CtrlP
@@ -132,14 +214,21 @@ set gdefault                      " Make search and replace global by default.
 " ------------------------------------------------------------------------------
 " White Space
 " ------------------------------------------------------------------------------
-set tabstop=4                     " Set tab to equal 4 spaces.
-set softtabstop=4                 " Set soft tabs equal to 4 spaces.
-set shiftwidth=4                  " Set auto indent spacing.
+set tabstop=2                     " Set tab to equal 4 spaces.
+set softtabstop=2                 " Set soft tabs equal to 4 spaces.
+set shiftwidth=2                  " Set auto indent spacing.
 set shiftround                    " Shift to the next round tab stop.
 set expandtab                     " Expand tabs into spaces.
 set smarttab                      " Insert spaces in front of lines.
 set listchars=tab:··,trail:·      " Show leading whitespace
 set list
+set smartindent
+
+" ------------------------------------------------------------------------------
+" White Space
+" ------------------------------------------------------------------------------
+
+au FileType xhtml,xml,erb,html so ~/.vim/plugin/html_autoclosetag.vim
 
 " ------------------------------------------------------------------------------
 " Presentation
@@ -152,6 +241,8 @@ set ruler                         " Show the cursor position.
 set hidden                        " Allow hidden buffers.
 set showmatch                     " Show matching parenthesis.
 set matchpairs+=<:>               " Pairs to match.
+set cmdheight=2                   " Make command line height to 2 lines.
+set number                        " Display line numbers
 set cf                            " Enable error jumping.
 syntax on                         " Enable syntax highlighting.
 filetype on                       " Detect file type.
@@ -162,10 +253,6 @@ highlight ColorColumn ctermbg=236 guibg=#262D51
 " ------------------------------------------------------------------------------
 " User Interface
 " ------------------------------------------------------------------------------
-let base16colorspace=256          " Access colors present in 256 colorspace
-colorscheme base16-tomorrow
-set background=dark
-
 if has('gui_running')
     set guioptions-=m             " Disable menu bar.
     set guioptions-=T             " Disable the tool bar bar.
@@ -175,17 +262,29 @@ if has('gui_running')
     set guioptions-=a             " Do not auto copy selection to clipboard.
 
     " If MacVim do some specific things.
-    set guifont=Source\ Code\ Pro:h16
-    set lines=52                      " Window size.
-    set columns=165
-    set vb                            " Disable the audible bell.
+    if has('gui_macvim')
+        set guifont=Monaco:h14
+        colorscheme base16-tomorrow             " Color scheme.
+        set vb                            " Disable the audible bell.
+
+        " Remove some shortcuts defined in MacVim
+        macmenu &File.New\ Tab key=<D-S-t>
+        macmenu &File.Print key=<nop>
+        macmenu &Tools.Make key=<nop>
+    endif
+else
 endif
+
+set guifont=Monaco:h14
+colorscheme base16-tomorrow
 
 if has('mouse')
     set mouse=a                   " Enable mouse everywhere.
     set mousemodel=popup_setpos   " Show a pop-up for right-click.
     set mousehide                 " Hide mouse while typing.
 endif
+
+set t_Co=256
 
 " ------------------------------------------------------------------------------
 " Status Line
@@ -212,19 +311,6 @@ au Syntax * RainbowParenthesesLoadBraces
 
 au FileType coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2
 au FileType ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 colorcolumn=121 textwidth=120
-
-" When not in a Rails project, vim-rails doesn't highlight
-" RSpec files. Do it manually.
-if !exists(":Rails!")
-  function! SyntaxForRspec()
-    syn keyword rubyRspec describe context it its specify shared_context shared_examples_for it_should_behave_like it_behaves_like before after around subject fixtures controller_name helper_name scenario feature background
-    syn match rubyRspec '\<let\>!\='
-    syn keyword rubyRspec violated pending expect double mock mock_model stub_model
-    syn match rubyRspec '\.\@<!\<stub\>!\@!'
-    highlight def link rubyRspec Function
-  endfunction
-  au BufNewFile,BufRead *_spec.rb call SyntaxForRspec()
-endif
 
 " ------------------------------------------------------------------------------
 " Functions

@@ -10,9 +10,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Source base16 256 colourspace script.
-source "$HOME/.colours/base16-shell/base16-tomorrow.dark.sh"
-
 # Aliases
 alias g='git'
 alias v='Vim'

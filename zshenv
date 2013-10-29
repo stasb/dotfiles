@@ -43,7 +43,6 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
-  /usr/local/share/npm/bin
   $path
 )
 
@@ -74,3 +73,6 @@ fi
 
 # Load rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# Load tmuxinator
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
