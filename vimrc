@@ -1,194 +1,196 @@
-" ------------------------------------------------------------------------------
-"          FILE: .vimrc
-"   DESCRIPTION: Vim configuration file. Based heavily on Sorin Ionescu's.
-"        AUTHOR: Christopher Chow (chris at chowie dot net)
-" ------------------------------------------------------------------------------
+set nocompatible
+filetype off
 
-" ------------------------------------------------------------------------------
-" General Settings
-" ------------------------------------------------------------------------------
-command! W :w                                " Seriously, it's not like :W is bound
-                                             " to anything anyway.
-set nocompatible                             " Turn off vi compatibility.
-set undolevels=1000                          " Large undo levels.
-set undofile                                 " Save undo tree.
-set undodir=/tmp                             " Undo tree directory.
-set history=50                               " Size of command history.
-set encoding=utf8                            " Always use unicode.
-set backspace=indent,eol,start               " Fix backspace.
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/vundle'
+
+Plugin 'Yggdroot/indentLine'
+" Plugin 'bling/vim-airline'
+" Plugin 'briancollins/vim-jst'
+" Plugin 'godlygeek/tabular'
+" Plugin 'jgdavey/tslime.vim'
+Plugin 'kien/ctrlp.vim'
+" Plugin 'lokaltog/vim-easymotion'
+" Plugin 'michaeljsmith/vim-indent-object'
+" Plugin 'mustache/vim-mustache-handlebars'
+" Plugin 'mxw/vim-jsx'
+" Plugin 'noahfrederick/vim-hemisu'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'kchmck/vim-coffee-script'
+" Plugin 'jelera/vim-javascript-syntax'
+" Plugin 'rizzatti/dash.vim'
+Plugin 'scrooloose/nerdtree'
+" Plugin 'thoughtbot/vim-rspec'
+Plugin 'tpope/vim-commentary'
+" Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-haml'
+" Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-surround'
+" Plugin 'tpope/vim-unimpaired'
+" Plugin 'vim-ruby/vim-ruby'
+Plugin 'roman/golden-ratio'
+Plugin 'chriskempson/base16-vim'
+Plugin 'mileszs/ack.vim'
+" Plugin 'editorconfig/editorconfig-vim'
+
+call vundle#end()
+
+filetype on
+filetype plugin indent on
+syntax enable
+highlight MatchParen ctermbg=4
+
+let mapleader=","
+set autoread
+set encoding=utf-8
+set showcmd
+set showmode
+set foldmethod=manual
+set directory-=.
+set wildmenu
+set wildmode=list:longest,full
+set mouse=a
+set backspace=2
+set number
+set ruler
+set ignorecase
+set incsearch
+set hlsearch
+set nohidden
+set clipboard=unnamed
+set laststatus=2
+set list
+set listchars=tab:▸\ ,trail:▫
 
 set background=dark
 
-set nobackup                                 " Disable backups.
-set nowritebackup
-set noswapfile
+set splitbelow
+set splitright
 
-set notimeout                                " Fix lag in iTerm.
-set ttimeout
-set timeoutlen=50
-set nomodeline
-set selection=inclusive                      " Select to the end of line.
+" let &colorcolumn=join(range(81,999),",")
+" highlight ColorColumn guibg=#efefef ctermbg=7
 
-set spelllang=en_au                          " Set spell check language.
+if version >= 700
+   set spl=en spell
+   set nospell
+endif
 
-" ------------------------------------------------------------------------------
-" Vundle
-" ------------------------------------------------------------------------------
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set guifont=Monaco:h12
 
-" Self manage vundle.
-Bundle 'gmarik/vundle'
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+if has("autocmd")
+  autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+  autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 
-" Language / syntax support.
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-ragtag'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'pangloss/vim-javascript'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'skalnik/vim-vroom'
-Bundle 'tpope/vim-fugitive'
-Bundle 'kien/ctrlp.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'henrik/rename.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'tsaleh/vim-matchit'
-Bundle 'scrooloose/nerdtree'
+  autocmd BufNewFile,BufRead *.rss set filetype=xml
+  autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufNewFile,BufRead *.ejs so $HOME/.vim/bundle/jst.vim
 
-" Git
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-fugitive'
+  " Remove any trailing whitespace that is in the file
+  autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+endif
 
-" Fuzzy file finder
-Bundle 'kien/ctrlp.vim'
+" Restore cursor position to where it was before
+augroup JumpCursorOnEdit
+   au!
+   autocmd BufReadPost *
+            \ if expand("<afile>:p:h") !=? $TEMP |
+            \   if line("'\"") > 1 && line("'\"") <= line("$") |
+            \     let JumpCursorOnEdit_foo = line("'\"") |
+            \     let b:doopenfold = 1 |
+            \     if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
+            \        let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
+            \        let b:doopenfold = 2 |
+            \     endif |
+            \     exe JumpCursorOnEdit_foo |
+            \   endif |
+            \ endif
+   " Need to postpone using "zv" until after reading the modelines.
+   autocmd BufWinEnter *
+            \ if exists("b:doopenfold") |
+            \   exe "normal zv" |
+            \   if(b:doopenfold > 1) |
+            \       exe  "+".1 |
+            \   endif |
+            \   unlet b:doopenfold |
+            \ endif
+augroup END
 
-" Call ack from vim
-Bundle 'mileszs/ack.vim'
+let g:Tex_DefaultTargetFormat = "pdf"
+let g:Tex_ViewRule_pdf = "kpdf"
 
-" Surround text keybindings
-Bundle 'tpope/vim-surround'
+" Key Mappings
+:imap ;; <Esc>
+noremap <silent> <C-l> <C-w>l
+noremap <silent> <C-h> <C-w>h
+noremap <silent> <C-k> <C-w>k
+noremap <silent> <C-j> <C-w>j
+noremap <silent> <C-t> :tabnew<CR>
+noremap <silent> <Leader>j :tabprevious<CR>
+noremap <silent> <Leader>k :tabnext<CR>
+noremap <silent> <Leader>l :nohls<CR><ESC>
+nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
+nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
 
-" Auto insert end structures
-Bundle 'tpope/vim-endwise'
+" Up and down are more logical with g..
+nnoremap <silent> k gk
+nnoremap <silent> j gj
+inoremap <silent> <Up> <Esc>gka
+inoremap <silent> <Down> <Esc>gja
 
-" Launch rspec tests from vim
-Bundle 'skalnik/vim-vroom'
+nnoremap <silent> <Home> i <Esc>r
+nnoremap <silent> <End> a <Esc>r
 
-" Format tabular text (ie Cucumber)
-Bundle 'godlygeek/tabular'
+nnoremap <silent> <Leader>o o<Esc>
+nnoremap <silent> <Leader>O O<Esc>
 
-" Commenting plugin
-Bundle 'tomtom/tcomment_vim'
 
-" Better status bar
-Bundle 'Lokaltog/vim-powerline'
+nnoremap <silent> <Leader>c :noh
 
-" Auto detect indentation settings
-Bundle 'Raimondi/YAIFA'
+nnoremap <space> za
 
-" Kill buffers without closing windows
-Bundle 'vim-scripts/bufkill.vim'
+map N Nzz
+map n nzz
 
-" Maintain widths of windows
-Bundle 'roman/golden-ratio'
+nmap <Leader>n :nohlsearch<CR>
 
-" Indent pasted lines properly. No more :set paste.
-Bundle 'sickill/vim-pasta'
+" http://vim.wikia.com/wiki/Moving_lines_up_or_down
+nnoremap <D-J> :m .+1<CR>==
+nnoremap <D-K> :m .-2<CR>==
 
-" Indentation-based text objects.
-Bundle 'michaeljsmith/vim-indent-object'
+nnoremap <Leader>W :update<CR> :bd<CR>
 
-" Displays indent levels.
-Bundle 'nathanaelkane/vim-indent-guides'
+" Testing
+set completeopt=longest,menuone,preview
 
-" Configures % to match more than just single characters.
-Bundle 'vim-scripts/matchit.zip'
+" Reload .vimrc
+nnoremap <silent> <Leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
-" Tab completion
-Bundle 'ervandew/supertab'
 
-" Rename buffers/files
-Bundle 'henrik/rename.vim'
+" Plugins
 
-" Themes
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'chriskempson/base16-vim'
+" Set runtime path for ctrl-p
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+nnoremap <Leader>b :CtrlPBuffer<CR>
 
-" ------------------------------------------------------------------------------
-" Binds
-" ------------------------------------------------------------------------------
-let mapleader = ","               " Use comma as leader.
+let g:ctrlp_match_window = 'order:ttb,max:20'
 
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
+nnoremap <Leader>e :Tabularize /=<CR>
+nnoremap <Leader>f :Tabularize /\|<CR>
 
-nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
-
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Enable NERDtree
+autocmd vimenter * if !argc() | NERDTree | endif
+nnoremap <C-n> :NERDTreeToggle<CR>
+let NERDTreeChDirMode=0
+let g:NERDSpaceDelims=1
 
 " Ack
 nnoremap <leader>a :Ack!<space>
 
-" Rename buffer
-nnoremap <Leader><Leader>r :Rename!<space>
-
-" Tabular
-nmap <Leader><Leader>c<Bar> :Tabularize /<Bar><CR>
-vmap <Leader><Leader>c<Bar> :Tabularize /<Bar><CR>
-nmap <Leader><Leader>c, :Tabularize /,<CR>
-vmap <Leader><Leader>c, :Tabularize /,<CR>
-
-" Project Notes
-map <Leader>pn :sp ~/Dropbox/Notes.md<CR>
-
-" Nerd Tree
-map <Leader>ne :NERDTree<CR>
-
-" Fugitive Status
-map <Leader>s :Gstatus<CR>
-
-" Remap esc
-imap jj <ESC>
-imap jk <ESC>
-
-nmap <Leader>n :nohlsearch<CR>
-
-" Save and run tests in Ruby
-
-au FileType ruby nmap <Leader>r :wa<CR>:VroomRunTestFile<CR>
-au FileType ruby nmap <Leader>R :wa<CR>:VroomRunNearestTest<CR>
-au FileType ruby imap <Leader>r <ESC>:wa<CR>:VroomRunTestFile<CR>
-au FileType ruby imap <Leader>R <ESC>:wa<CR>:VroomRunNearestTest<CR>
-
-" ------------------------------------------------------------------------------
-" Rag Tag
-" ------------------------------------------------------------------------------
-
-inoremap <M-o> <Esc>o
-inoremap <C-j> <Down>
-let g:ragtag_global_maps = 1
-
-" ------------------------------------------------------------------------------
-" vroom
-" ------------------------------------------------------------------------------
-
-let g:vroom_map_keys = 0
-let g:vroom_use_bundle_exec = 1
-
-" ------------------------------------------------------------------------------
 " CtrlP
 " ------------------------------------------------------------------------------
 let g:ctrlp_map = '<Leader>t'
@@ -201,128 +203,17 @@ let g:ctrlp_user_command = {
 \ 'fallback': 'find . -type f | egrep "^\.[\/.]\.(git/|hg|svn/|gitmodules|DS_Store)"'
 \ }
 
-" ------------------------------------------------------------------------------
-" Search and Replace
-" ------------------------------------------------------------------------------
-set incsearch                     " Show partial matches as search is entered.
-set hlsearch                      " Highlight search patterns.
-set ignorecase                    " Enable case insensitive search.
-set smartcase                     " Disable case insensitivity if mixed case.
-set wrapscan                      " Wrap to top of buffer when searching.
-set gdefault                      " Make search and replace global by default.
+let g:ctrlp_match_window = 'bottom,min:1,max:10,results:10'
 
-" ------------------------------------------------------------------------------
-" White Space
-" ------------------------------------------------------------------------------
-set tabstop=2                     " Set tab to equal 4 spaces.
-set softtabstop=2                 " Set soft tabs equal to 4 spaces.
-set shiftwidth=2                  " Set auto indent spacing.
-set shiftround                    " Shift to the next round tab stop.
-set expandtab                     " Expand tabs into spaces.
-set smarttab                      " Insert spaces in front of lines.
-set listchars=tab:··,trail:·      " Show leading whitespace
-set list
-set smartindent
+map <Leader>ne :NERDTree<CR>
 
-" ------------------------------------------------------------------------------
-" White Space
-" ------------------------------------------------------------------------------
+" let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+let g:rspec_runner = 'os_x_iterm'
 
-au FileType xhtml,xml,erb,html so ~/.vim/plugin/html_autoclosetag.vim
+" nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
+" nnoremap <Leader>s :call RunNearestSpec()<CR>
+" nnoremap <Leader>l :call RunLastSpec()<CR>
 
-" ------------------------------------------------------------------------------
-" Presentation
-" ------------------------------------------------------------------------------
-set shortmess=aIoO                " Show short messages, no intro.
-set ttyfast                       " Fast scrolling when on a decent connection.
-set nowrap                        " Wrap text.
-set showcmd                       " Show last command.
-set ruler                         " Show the cursor position.
-set hidden                        " Allow hidden buffers.
-set showmatch                     " Show matching parenthesis.
-set matchpairs+=<:>               " Pairs to match.
-set cmdheight=2                   " Make command line height to 2 lines.
-set number                        " Display line numbers
-set cf                            " Enable error jumping.
-syntax on                         " Enable syntax highlighting.
-filetype on                       " Detect file type.
-filetype indent on                " Enable file indenting.
-filetype plugin indent on         " Load syntax files for better indenting.
-highlight ColorColumn ctermbg=236 guibg=#262D51
+set nowrap
 
-" ------------------------------------------------------------------------------
-" User Interface
-" ------------------------------------------------------------------------------
-if has('gui_running')
-    set guioptions-=m             " Disable menu bar.
-    set guioptions-=T             " Disable the tool bar bar.
-    set guioptions-=l             " Disable left scrollbar.
-    set guioptions-=L             " Disable left scrollbar when split.
-    set guioptions-=r             " Diable right scrollbar.
-    set guioptions-=a             " Do not auto copy selection to clipboard.
-
-    " If MacVim do some specific things.
-    if has('gui_macvim')
-        set guifont=Monaco:h14
-        colorscheme base16-tomorrow             " Color scheme.
-        set vb                            " Disable the audible bell.
-
-        " Remove some shortcuts defined in MacVim
-        macmenu &File.New\ Tab key=<D-S-t>
-        macmenu &File.Print key=<nop>
-        macmenu &Tools.Make key=<nop>
-    endif
-else
-endif
-
-set guifont=Monaco:h14
-colorscheme base16-tomorrow
-
-if has('mouse')
-    set mouse=a                   " Enable mouse everywhere.
-    set mousemodel=popup_setpos   " Show a pop-up for right-click.
-    set mousehide                 " Hide mouse while typing.
-endif
-
-set t_Co=256
-
-" ------------------------------------------------------------------------------
-" Status Line
-" ------------------------------------------------------------------------------
-
-" Always show status.
-set laststatus=2
-
-" Disable status line fill chars.
-set fillchars+=stl:\ ,stlnc:\ " Space.
-
-" ------------------------------------------------------------------------------
-" Ack
-" ------------------------------------------------------------------------------
-let g:ackprg = "ag --nogroup --nocolor --column"
-
-" ------------------------------------------------------------------------------
-" Rainbow Parenthesis
-" ------------------------------------------------------------------------------
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
-au FileType coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2
-au FileType ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 colorcolumn=121 textwidth=120
-
-" ------------------------------------------------------------------------------
-" Functions
-" ------------------------------------------------------------------------------
-
-" Strip Trailing Whitespace
-function! StripTrailingWhitespace()
-    if !&binary && &modifiable && &filetype != 'diff'
-        let l:winview = winsaveview()
-        %s/\s\+$//e
-        let @/=''
-        call winrestview(l:winview)
-    endif
-endfunction
-nnoremap <leader>W :call StripTrailingWhitespace()<CR>
+nnoremap Q <nop>

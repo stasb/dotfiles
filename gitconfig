@@ -10,8 +10,8 @@
   pushsub = submodule foreach "git push origin master"
   pullsub = submodule foreach "git pull origin master"
 [user]
-  name = Kinesis User
-  email = user@kinesis.org
+	name = Stas Belkov
+	email = belkiii@gmail.com
 [core]
   legacyheaders = false
   excludesfile = ~/.gitexclude
@@ -31,3 +31,9 @@
   default = tracking
 [rerere]
   enabled = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
