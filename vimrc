@@ -7,7 +7,7 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 
 Plugin 'Yggdroot/indentLine'
-" Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 " Plugin 'briancollins/vim-jst'
 " Plugin 'godlygeek/tabular'
 " Plugin 'jgdavey/tslime.vim'
@@ -31,7 +31,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 " Plugin 'tpope/vim-unimpaired'
 " Plugin 'vim-ruby/vim-ruby'
-Plugin 'roman/golden-ratio'
+" Plugin 'roman/golden-ratio'
 Plugin 'chriskempson/base16-vim'
 Plugin 'mileszs/ack.vim'
 " Plugin 'editorconfig/editorconfig-vim'
@@ -43,7 +43,7 @@ filetype plugin indent on
 syntax enable
 highlight MatchParen ctermbg=4
 
-let mapleader=","
+let mapleader=" "
 set autoread
 set encoding=utf-8
 set showcmd
@@ -205,7 +205,7 @@ let g:ctrlp_user_command = {
 
 let g:ctrlp_match_window = 'bottom,min:1,max:10,results:10'
 
-map <Leader>ne :NERDTree<CR>
+noremap <silent> ,ne :NERDTree<CR>
 
 " let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 let g:rspec_runner = 'os_x_iterm'
@@ -217,3 +217,40 @@ let g:rspec_runner = 'os_x_iterm'
 set nowrap
 
 nnoremap Q <nop>
+
+" Airline
+" ------------------------------------------------------------------------------
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:NERDTreeWinSize = 80
+
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" nmap <silent> <Space>j :bnext<CR>
+" nmap <silent> <Space>h :bprevious<CR>
+
+" noremap <silent> <C-l> :bnext <CR>
+" noremap <silent> <C-h> :bprevious <CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
