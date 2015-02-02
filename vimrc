@@ -7,7 +7,7 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 
 Plugin 'Yggdroot/indentLine'
-" Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 " Plugin 'briancollins/vim-jst'
 " Plugin 'godlygeek/tabular'
 " Plugin 'jgdavey/tslime.vim'
@@ -22,6 +22,7 @@ Plugin 'kien/ctrlp.vim'
 " Plugin 'jelera/vim-javascript-syntax'
 " Plugin 'rizzatti/dash.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 " Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-commentary'
 " Plugin 'tpope/vim-endwise'
@@ -64,6 +65,8 @@ set clipboard=unnamed
 set laststatus=2
 set list
 set listchars=tab:▸\ ,trail:▫
+
+nnoremap ; :
 
 set background=dark
 
@@ -125,13 +128,13 @@ let g:Tex_ViewRule_pdf = "kpdf"
 
 " Key Mappings
 :imap ;; <Esc>
-noremap <silent> <C-l> <C-w>l
-noremap <silent> <C-h> <C-w>h
+noremap <silent> <space>l <C-w>l
+noremap <silent> <space>h <C-w>h
 noremap <silent> <C-k> <C-w>k
 noremap <silent> <C-j> <C-w>j
 noremap <silent> <C-t> :tabnew<CR>
-noremap <silent> <Leader>j :tabprevious<CR>
-noremap <silent> <Leader>k :tabnext<CR>
+noremap <silent> <C-h> :tabprevious<CR>
+noremap <silent> <C-l> :tabnext<CR>
 noremap <silent> <Leader>l :nohls<CR><ESC>
 nnoremap <silent> <Leader>ev :tabnew<CR>:e ~/.vimrc<CR>
 nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
@@ -151,10 +154,18 @@ nnoremap <silent> <Leader>O O<Esc>
 
 nnoremap <silent> <Leader>c :noh
 
-nnoremap <space> za
-
 map N Nzz
 map n nzz
+
+map <D-1> :tabn 1 <CR>
+map <D-2> :tabn 2 <CR>
+map <D-3> :tabn 3 <CR>
+map <D-4> :tabn 4 <CR>
+map <D-5> :tabn 5 <CR>
+map <D-6> :tabn 6 <CR>
+map <D-7> :tabn 7 <CR>
+map <D-8> :tabn 8 <CR>
+map <D-9> :tabn 9 <CR>
 
 nmap <Leader>n :nohlsearch<CR>
 
@@ -183,10 +194,14 @@ nnoremap <Leader>e :Tabularize /=<CR>
 nnoremap <Leader>f :Tabularize /\|<CR>
 
 " Enable NERDtree
-autocmd vimenter * if !argc() | NERDTree | endif
-nnoremap <C-n> :NERDTreeToggle<CR>
+" autocmd vimenter * if !argc() | NERDTree | endif
+
+let g:nerdtree_tabs_open_on_gui_startup = 0
+nnoremap <C-n> :NERDTreeTabsToggle<CR>
 let NERDTreeChDirMode=0
 let g:NERDSpaceDelims=1
+
+noremap <Leader>nf :NERDTreeTabsFind<CR>
 
 " Ack
 nnoremap <leader>a :Ack!<space>
@@ -217,3 +232,32 @@ let g:rspec_runner = 'os_x_iterm'
 set nowrap
 
 nnoremap Q <nop>
+
+" below from https://joshldavis.com/2014/04/05/vim-tab-madness-buffers-vs-tabs/
+
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+" nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+" nmap <silent><space>l :bnext
+
+" Move to the previous buffer
+" nmap <silent><space>h :bprevious
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
