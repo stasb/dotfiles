@@ -8,34 +8,34 @@ Plugin 'gmarik/vundle'
 
 Plugin 'Yggdroot/indentLine'
 Plugin 'bling/vim-airline'
-" Plugin 'briancollins/vim-jst'
-" Plugin 'godlygeek/tabular'
-" Plugin 'jgdavey/tslime.vim'
+Plugin 'briancollins/vim-jst'
+Plugin 'godlygeek/tabular'
+Plugin 'jgdavey/tslime.vim'
 Plugin 'kien/ctrlp.vim'
 " Plugin 'lokaltog/vim-easymotion'
-" Plugin 'michaeljsmith/vim-indent-object'
-" Plugin 'mustache/vim-mustache-handlebars'
-" Plugin 'mxw/vim-jsx'
-" Plugin 'noahfrederick/vim-hemisu'
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'kchmck/vim-coffee-script'
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'mxw/vim-jsx'
+Plugin 'noahfrederick/vim-hemisu'
+Plugin 'pangloss/vim-javascript'
+Plugin 'kchmck/vim-coffee-script'
 " Plugin 'jelera/vim-javascript-syntax'
-" Plugin 'rizzatti/dash.vim'
+Plugin 'rizzatti/dash.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-" Plugin 'thoughtbot/vim-rspec'
+Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-commentary'
-" Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive'
-" Plugin 'tpope/vim-haml'
-" Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
-" Plugin 'tpope/vim-unimpaired'
-" Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'roman/golden-ratio'
 Plugin 'chriskempson/base16-vim'
 Plugin 'mileszs/ack.vim'
-" Plugin 'editorconfig/editorconfig-vim'
+Plugin 'editorconfig/editorconfig-vim'
 
 call vundle#end()
 
@@ -43,6 +43,11 @@ filetype on
 filetype plugin indent on
 syntax enable
 highlight MatchParen ctermbg=4
+
+" set nocursorcolumn
+" set nocursorline
+" set norelativenumber
+" syntax sync minlines=256
 
 let mapleader=","
 set autoread
