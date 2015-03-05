@@ -32,10 +32,11 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'roman/golden-ratio'
+" Plugin 'roman/golden-ratio'
 Plugin 'chriskempson/base16-vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'ryanss/vim-hackernews'
 
 call vundle#end()
 
@@ -202,6 +203,7 @@ nnoremap <Leader>f :Tabularize /\|<CR>
 " autocmd vimenter * if !argc() | NERDTree | endif
 
 let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:NERDTreeWinSize=70
 nnoremap <C-n> :NERDTreeTabsToggle<CR>
 let NERDTreeChDirMode=0
 let g:NERDSpaceDelims=1
@@ -230,7 +232,7 @@ map <Leader>ne :NERDTree<CR>
 " let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 let g:rspec_runner = 'os_x_iterm'
 
-" nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
+nnoremap <Leader>r :call RunCurrentSpecFile()<CR>
 " nnoremap <Leader>s :call RunNearestSpec()<CR>
 " nnoremap <Leader>l :call RunLastSpec()<CR>
 
