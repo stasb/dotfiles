@@ -213,6 +213,8 @@ noremap <Leader>nf :NERDTreeTabsFind<CR>
 " Ack
 nnoremap <leader>a :Ack!<space>
 
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
 " CtrlP
 " ------------------------------------------------------------------------------
 let g:ctrlp_map = '<Leader>t'
