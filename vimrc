@@ -36,7 +36,8 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'chriskempson/base16-vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'ryanss/vim-hackernews'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'marijnh/tern_for_vim'
 
 call vundle#end()
 

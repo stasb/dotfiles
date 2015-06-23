@@ -17,4 +17,8 @@ alias t='tmux'
 alias c='cd'
 alias z='zeus'
 alias be='bundle exec'
-alias psql.server='pg_ctl -D /usr/local/var/postgres'
+
+# Servers and Processes
+alias running_rs='lsof -wni tcp:3000'
+
+alias psql.server='postgres -D /usr/local/var/postgres'
