@@ -11,10 +11,10 @@
   pullsub = submodule foreach "git pull origin master"
 [user]
 	name = Stas Belkov
-	email = belkiii@gmail.com
+	email = stanislav.belkov@terem.com.au
 [core]
   legacyheaders = false
-  excludesfile = ~/.gitexclude
+	excludesfile = /Users/stanislavbelkov/.gitexclude
   whitespace = trailing-space,space-before-tab
   quotepath = false
   autocrlf = false

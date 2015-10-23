@@ -17,8 +17,15 @@ alias t='tmux'
 alias c='cd'
 alias z='zeus'
 alias be='bundle exec'
+alias ns='npm install'
 
 # Servers and Processes
 alias running_rs='lsof -wni tcp:3000'
 
 alias psql.server='postgres -D /usr/local/var/postgres'
+
+runNodemon() {
+  nodemon $1
+}
+
+alias nod=runNodemon

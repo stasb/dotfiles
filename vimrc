@@ -31,13 +31,13 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'digitaltoad/vim-jade'
 Plugin 'vim-ruby/vim-ruby'
 " Plugin 'roman/golden-ratio'
 Plugin 'chriskempson/base16-vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'marijnh/tern_for_vim'
 
 call vundle#end()
 
@@ -203,7 +203,8 @@ nnoremap <Leader>f :Tabularize /\|<CR>
 " Enable NERDtree
 " autocmd vimenter * if !argc() | NERDTree | endif
 
-let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:nerdtree_tabs_open_on_gui_startup = 1
+let g:nerdtree_tabs_focus_on_files = 1
 let g:NERDTreeWinSize=70
 nnoremap <C-n> :NERDTreeTabsToggle<CR>
 let NERDTreeChDirMode=0
@@ -230,10 +231,14 @@ let g:ctrlp_user_command = {
 
 let g:ctrlp_match_window = 'bottom,min:1,max:10,results:10'
 
-map <Leader>ne :NERDTree<CR>
+" map <Leader>ne :NERDTree<CR>
+
+map <Leader>ne <plug>NERDTreeTabsToggle<CR>
 
 " let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
-let g:rspec_runner = 'os_x_iterm'
+let g:rspec_runner = 'os_x_terminal'
+
+let g:rspec_command = "bundle exec rspec {spec}"
 
 nnoremap <Leader>r :call RunCurrentSpecFile()<CR>
 " nnoremap <Leader>s :call RunNearestSpec()<CR>
