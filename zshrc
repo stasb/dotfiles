@@ -24,8 +24,16 @@ alias running_rs='lsof -wni tcp:3000'
 
 alias psql.server='postgres -D /usr/local/var/postgres'
 
+alias dj_start='RAILS_ENV=development bin/delayed_job start'
+alias dj_stop='RAILS_ENV=development bin/delayed_job stop'
+alias dj_restart='RAILS_ENV=development bin/delayed_job restart'
+
 runNodemon() {
   nodemon $1
 }
 
 alias nod=runNodemon
+
+# If you installed the SDK via Homebrew, otherwise ~/Library/Android/sdk
+export ANDROID_HOME=/usr/local/opt/android-sdk
+export ANDROID_NDK_HOME=/usr/local/opt/android-ndk

@@ -11,7 +11,7 @@
   pullsub = submodule foreach "git pull origin master"
 [user]
 	name = Stas Belkov
-	email = stanislav.belkov@terem.com.au
+	email = belkiii@gmail.com
 [core]
   legacyheaders = false
 	excludesfile = /Users/stanislavbelkov/.gitexclude

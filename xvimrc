@@ -207,10 +207,7 @@ nnoremap <Leader>f :Tabularize /\|<CR>
 
 let g:nerdtree_tabs_open_on_gui_startup = 1
 let g:nerdtree_tabs_focus_on_files = 1
-let g:nerdtree_tabs_synchronize_focus = 1
-let g:nerdtree_tabs_focus_on_files = 1
-
-let g:NERDTreeWinSize=60
+let g:NERDTreeWinSize=70
 nnoremap <C-n> :NERDTreeToggle<CR>
 let NERDTreeChDirMode=0
 let g:NERDSpaceDelims=1
@@ -293,8 +290,3 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
-
-noremap <Leader>mc :cclose<CR>
-
-" enable line numbers
-let NERDTreeShowLineNumbers=1
