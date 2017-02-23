@@ -8,7 +8,6 @@ Plugin 'gmarik/vundle'
 
 Plugin 'Yggdroot/indentLine'
 Plugin 'bling/vim-airline'
-Plugin 'briancollins/vim-jst'
 Plugin 'godlygeek/tabular'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'kien/ctrlp.vim'
@@ -40,6 +39,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'dkprice/vim-easygrep'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'b4winckler/vim-objc'
+Plugin 'briancollins/vim-jst'
+Plugin 'goldfeld/vim-seek'
 
 call vundle#end()
 
@@ -100,7 +101,6 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.rss set filetype=xml
   autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
   autocmd BufRead,BufNewFile *.md set filetype=markdown
-  autocmd BufNewFile,BufRead *.ejs so $HOME/.vim/bundle/jst.vim
 
   " Remove any trailing whitespace that is in the file
   autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif

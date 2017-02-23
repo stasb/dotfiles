@@ -37,3 +37,6 @@ alias nod=runNodemon
 # If you installed the SDK via Homebrew, otherwise ~/Library/Android/sdk
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export ANDROID_NDK_HOME=/usr/local/opt/android-ndk
+
+export NVM_DIR="/Users/stanislavbelkov/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

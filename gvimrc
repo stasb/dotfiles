@@ -1,4 +1,4 @@
-set guifont=Monaco:h12
+set guifont=Monaco:h14
 set guitablabel=%t
 set guioptions-=T
 set guioptions-=m
