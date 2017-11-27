@@ -11,12 +11,11 @@ Plugin 'bling/vim-airline'
 Plugin 'godlygeek/tabular'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'lokaltog/vim-easymotion'
+Plugin 'justinmk/vim-sneak'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'mxw/vim-jsx'
 Plugin 'noahfrederick/vim-hemisu'
-Plugin 'pangloss/vim-javascript'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'tfnico/vim-gradle'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'rizzatti/dash.vim'
@@ -32,6 +31,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 Plugin 'chriskempson/base16-vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'editorconfig/editorconfig-vim'
@@ -41,6 +42,9 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'b4winckler/vim-objc'
 Plugin 'briancollins/vim-jst'
 Plugin 'goldfeld/vim-seek'
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'epilande/vim-react-snippets'
 
 call vundle#end()
 
@@ -272,6 +276,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_theme='bubblegum'
 
 " This allows buffers to be hidden if you've modified a buffer.
 " This is almost a must if you wish to use buffers in this way.
@@ -298,3 +303,11 @@ noremap <Leader>mc :cclose<CR>
 
 " enable line numbers
 let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1
+
+" Trigger configuration (Optional)
+let g:UltiSnipsExpandTrigger="<c-tab>"
+
+let g:sneak#label = 1
+
+let g:sneak#s_next = 1
